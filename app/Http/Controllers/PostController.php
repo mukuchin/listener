@@ -10,17 +10,17 @@ class PostController extends Controller
 {
     public function index(Post $post)
     {
-        return view('posts/index')->with(['posts' => $post->getPaginateByLimit()]);
+        return view('posts/index')->with(['questions' => $post->getPaginateByLimit()]);
     }
 
     public function show(Post $post)
     {
-        return view('posts/show')->with(['post' => $post]);
+        return view('posts/show')->with(['question' => $post]);
     }
 
     public function create(Category $category)
     {
-        return view('posts/create')->with(['categories' => $category->get()]);
+        return view('posts/create')->with(['tags' => $category->get()]);
     }
 
     public function store(Post $post, Request $request)
@@ -32,7 +32,7 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        return view('posts/edit')->with(['post' => $post]);
+        return view('posts/edit')->with(['question' => $post]);
     }
 
     public function update(Request $request, Post $post)
