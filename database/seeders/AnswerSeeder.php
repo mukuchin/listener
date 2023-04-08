@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Answer;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class AnswerSeeder extends Seeder
 {
@@ -21,7 +22,9 @@ class AnswerSeeder extends Seeder
         // this is to prevent circular reference
         foreach (Answer::all() as $answer) {
             if ($answer->id < 20) {
-                $answer->answers()->attach(Answer::all()->where('id', '>=', 25)->random(rand(0, 3)));
+                $answer->children()->saveMany(
+                    Answer::inRandomOrder()->where('id', '>', 25)->take(rand(0, 3))->get()
+                );
             }
         }
     }

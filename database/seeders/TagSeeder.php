@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Faker\Provider\DateTime;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TagSeeder extends Seeder
 {
@@ -17,49 +18,31 @@ class TagSeeder extends Seeder
         // Create following tags
         // HTML, PHP, CSS, JavaScript, Laravel, MySQL, Git, AWS, Other
         DB::table("tags")->insert([
-            "name" => "HTML",
-            "created_at" => new DateTime(),
-            "updated_at" => new DateTime(),
+            "name" => "HTML"
         ]);
         DB::table("tags")->insert([
-            "name" => "PHP",
-            "created_at" => new DateTime(),
-            "updated_at" => new DateTime(),
+            "name" => "PHP"
         ]);
         DB::table("tags")->insert([
-            "name" => "CSS",
-            "created_at" => new DateTime(),
-            "updated_at" => new DateTime(),
+            "name" => "CSS"
         ]);
         DB::table("tags")->insert([
-            "name" => "JavaScript",
-            "created_at" => new DateTime(),
-            "updated_at" => new DateTime(),
+            "name" => "JavaScript"
         ]);
         DB::table("tags")->insert([
-            "name" => "Laravel",
-            "created_at" => new DateTime(),
-            "updated_at" => new DateTime(),
+            "name" => "Laravel"
         ]);
         DB::table("tags")->insert([
-            "name" => "MySQL",
-            "created_at" => new DateTime(),
-            "updated_at" => new DateTime(),
+            "name" => "MySQL"
         ]);
         DB::table("tags")->insert([
-            "name" => "Git",
-            "created_at" => new DateTime(),
-            "updated_at" => new DateTime(),
+            "name" => "Git"
         ]);
         DB::table("tags")->insert([
-            "name" => "AWS",
-            "created_at" => new DateTime(),
-            "updated_at" => new DateTime(),
+            "name" => "AWS"
         ]);
         DB::table("tags")->insert([
-            "name" => "Other",
-            "created_at" => new DateTime(),
-            "updated_at" => new DateTime(),
+            "name" => "Other"
         ]);
     }
 }
