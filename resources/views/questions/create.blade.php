@@ -6,7 +6,7 @@
     </head>
     <body>
         <h1>投稿作成</h1>
-        <form action="/questions" method="POST">
+        <form enctype="multipart/form-data" action="/questions" method="POST">
             @csrf
             <div>
                 <h2>タイトル</h2>
@@ -28,7 +28,7 @@
             </div>
             <div>
                 <h2>画像</h2>
-                <input type="file" name=image value={{old('question.image')}}>
+                <input type="file" name=image>
             </div>
             <input type="submit" value="保存"/>
         </form>
