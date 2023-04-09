@@ -28,4 +28,21 @@ class Question extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // eager load tags when fetching questions
+    public static function getQuestionWithTags()
+    {
+        return self::with('tags')->get();
+    }
+
+    public static function getQuestionWithTagsAndAnswers()
+    {
+        return Question::with('tags', 'answers')->get();
+    }
+
+    // get questions by user id
+    public static function getQuestionsByUserID($user_id)
+    {
+        return Question::where('user_id', $user_id)->get();
+    }
 }
