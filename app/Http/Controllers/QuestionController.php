@@ -45,19 +45,17 @@ class QuestionController extends Controller
     }
 
     // Store a new question
-    public function store(Question $question, Request $request)
+    public function store(Question $question, QuestionRequest $request)
     {
         $input = $request['question'];
-        //store an image
-        //dd($request);
         $file = $request->file('image');
-        if(!empty($file)){
+        if (!empty($file)) {
             $filename = $file->getClientOriginalName();
             $move = $file->move('./upload', $filename);
-        }else{
+        } else {
             $filename = "";
         }
-        
+
         // create new question from request
         //$input = $request['question'];
         $input['user_id'] = Auth::user()->id;
@@ -69,8 +67,6 @@ class QuestionController extends Controller
         $question->tags()->attach($request->tags);
 
         return redirect()->route('questions.index');
-        
-        
     }
 
     // Edit a question
