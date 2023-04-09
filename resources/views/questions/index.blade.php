@@ -1,9 +1,14 @@
+<x-app-layout>
+    <x-slot name="header">
+        　一覧
+    </x-slot>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Questions</title>
 </head>
 <body>
+    <h1><a href="/questions/create">新規作成</a></h1>
     <h1>Questions</h1>
     <ul>
         @foreach ($questions as $question)
@@ -29,3 +34,4 @@
         @endforeach
     </ul>
 </body>
+</x-app-layout>

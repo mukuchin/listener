@@ -1,3 +1,7 @@
+<x-app-layout>
+    <x-slot name="header">
+        　一覧
+    </x-slot>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -7,16 +11,15 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     </head>
     <body>
-        <h1>チーム開発会へようこそ！</h1>
         <h2>投稿一覧画面</h2>
         <a href='/posts/create'>新規投稿</a>
         <div>
             @foreach ($posts as $post)
                 <div style='border:solid 1px; margin-bottom: 10px;'>
                     <p>
-                        タイトル：<a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
+                        タイトル：<a href="/questions/{{ $question->id }}">{{ $question->title }}</a>
                     </p>
-                    <p>カテゴリー：<a href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a></p>
+                    <p>カテゴリー：{{ $question->tag->name }}</p>
                 </div>
             @endforeach
         </div>
@@ -25,3 +28,4 @@
         </div>
     </body>
 </html>
+</x-app-layout>

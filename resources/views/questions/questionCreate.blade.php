@@ -2,12 +2,11 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <title>Blog</title>
+        <title>create</title>
     </head>
     <body>
-        <h1>チーム開発会へようこそ！</h1>
-        <h2>投稿作成</h2>
-        <form action="/posts" method="POST">
+        <h1>投稿作成</h1>
+        <form action="/questions/create" method="POST">
             @csrf
             <div>
                 <h2>タイトル</h2>
@@ -26,6 +25,9 @@
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
+            </div>
+            <div>
+                <h2>画像</h2>
                 
             </div>
             <input type="submit" value="保存"/>

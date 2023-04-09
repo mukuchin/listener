@@ -13,6 +13,9 @@
     </ul>
     <h2>Body</h2>
     <p>{{ $question->body }}</p>
+    
+    <h2><a href="/questions/{{$question->id}}">回答する</a></h2>
+    
     <h2>Answers</h2>
     <ul>
         @foreach ($question->answers as $answer)
