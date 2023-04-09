@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Models\Question;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Answer extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     // one-to-many for questions
     public function question()
@@ -20,12 +21,6 @@ class Answer extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    // reference parent answer, if any
-    public function parent()
-    {
-        return $this->belongsTo(Answer::class);
     }
 
     // reference child answers, if any

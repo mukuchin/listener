@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('image', 100)->nullable();
             $table->foreignId('question_id')->constrained()->OnDelete('cascade');
             $table->unsignedBigInteger('answer_id')->nullable();
+            $table->softDeletes();
         });
     }
 

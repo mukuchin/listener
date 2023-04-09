@@ -17,7 +17,7 @@ class AnswerFactory extends Factory
     public function definition()
     {
         return [
-            'body' => $this->faker->text,
+            'body' => $this->faker->word(),
             'user_id' => \App\Models\User::all()->random()->id,
             'question_id' => \App\Models\Question::all()->random()->id,
         ];
