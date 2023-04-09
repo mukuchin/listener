@@ -1,8 +1,8 @@
+<!DOCTYPE html>
 <x-app-layout>
     <x-slot name="header">
         　一覧
     </x-slot>
-<!DOCTYPE html>
 <html>
 <head>
     <title>Questions</title>
