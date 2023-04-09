@@ -1,7 +1,13 @@
 <!DOCTYPE html> 
-<html>
+<x-app-layout>
+    <x-slot name="header">
+        　一覧
+    </x-slot>
+    <html>
 <head>
-    <title>Question {{$question->id}}</title>
+    <title>
+        Question {{$question->id}}
+    </title>
 </head>
 <script>
     function toggleForm() {
@@ -10,21 +16,23 @@
     }
 </script>
 <body>
-    <h1>{{ $question->title }}</h1>
-    <h2>Tags</h2>
+    <h1 class="text-2xl font-bold py-5">{{ $question->title }}</h1>
+    <h2 class="text-xl font-bold py-1">Tags</h2>
     <ul>
         @foreach ($question->tags as $tag)
-            <li>{{ $tag->name }}</li>
+            <li class="text-xm py-0">・{{ $tag->name }}</li>
         @endforeach
     </ul>
-    <h2>Body</h2>
+    <h2 class="text-xl font-bold py-1">Body</h2>
     <p>{{ $question->body }}</p>
     
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold my-5 py-2 px-4 rounded"
         onclick="toggleForm()"
     >回答する</button>
+    
     <form id="myAnswer" style="display: none;"
         method="POST"
+        class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         action="/questions/{{$question->id}}/reply"
     >
         @csrf
@@ -38,8 +46,11 @@
         >回答を送信</button>
     </form>
     
-    <h2>Answers</h2>
-    <ul>
+    {{-- insert horizontal bar --}}
+    <hr class="border-2 border-gray-300">
+
+    <h2 class="text-2xl">Answers</h2>
+    <ul class="list-disc">
         @foreach ($question->answers as $answer)
             @if ($answer->answer_id == null)
                 <li>{{ $answer->body }}</li>
@@ -48,21 +59,27 @@
                 @endif
                 @php
                     $answers = $answer->children;
+                    $indent = 0;
                 @endphp
                 {{-- while answers children exists, nest them --}}
                 @while ($answers->count() > 0)
                     @php
                         echo('<script>console.log('.$answers.');</script>')
                     @endphp
-                    <ul>
+                    <ul class="ml-5">
                         @foreach ($answers as $answer)
-                        <li>{{ $answer->body }}</li>
-                        {{-- @if ($answer->user_id == $user_id)
-                        @endif --}}
+                        <li>
+                            {{-- indent --}}
+                            @for ($i = 0; $i < $indent; $i++)
+                                <span class="ml-5"></span>
+                            @endfor
+                            {{ $answer->body }}
+                        </li>
                         @endforeach
                     </ul>
                     @php
                         $answers = $answer->children;
+                        $indent++;
                     @endphp
                 @endwhile
             @endif
@@ -74,3 +91,4 @@
         @endforeach
     </ul>
 </body>
+</x-app-layout>
