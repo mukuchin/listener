@@ -47,10 +47,7 @@ Route::controller(QuestionController::class)->middleware(['auth'])->group(functi
     // Answer related routes
 
     // Create new answer
-    Route::post('/questions/{question}/reply', [AnswerController::class, 'store'])->name('answers.store');
-
-    // Edit answer
-    Route::get('/answers/{answer}/edit', [AnswerController::class, 'edit'])->name('answers.edit');
+    Route::post('/questions/{question}/reply', [AnswerController::class, 'reply'])->name('answers.reply');
 
     // Update answer
     Route::put('/answers/{answer}', [AnswerController::class, 'update'])->name('answers.update');
