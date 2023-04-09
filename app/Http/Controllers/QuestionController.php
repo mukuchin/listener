@@ -85,12 +85,24 @@ class QuestionController extends Controller
     // Update a question
     public function update(Question $question, QuestionRequest $request)
     {
-        // update question from request
-        $input = $request->all();
-        $question->fill($input)->save();
+        //store an image
+        $file = $request->file('image');
+        if(!empty($file)){
+            $filename = $file->getClientOriginalName();
+            $move = $file->move('./upload', $filename);
+        }else{
+            $filename = "";
+        }
+        
+        // create new question from request
+        $input = $request['question'];
+        $input['user_id'] = Auth::user()->id;
+        $question->fill($input);
+        $question->image = $filename;
+        $question->save();
 
-        // sync tags to question
-        $question->tags()->sync($request->tags);
+        // attach tags to question
+        $question->tags()->attach($request->tags);
 
         return redirect()->route('questions.index');
     }
