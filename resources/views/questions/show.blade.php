@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-    <title>Question{{$question->id}}</title>
+    <title>Question {{$question->id}}</title>
 </head>
 <body>
     <h1>{{ $question->title }}</h1>
@@ -29,6 +29,8 @@
                     <ul>
                         @foreach ($answers as $answer)
                         <li>{{ $answer->body }}</li>
+                        {{-- @if ($answer->user_id == $user_id)
+                        @endif --}}
                         @endforeach
                     </ul>
                     @php
