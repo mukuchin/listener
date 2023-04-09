@@ -11,6 +11,12 @@ class Answer extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'body',
+        'user_id',
+        'question_id',
+    ];
+
     // one-to-many for questions
     public function question()
     {

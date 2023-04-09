@@ -10,28 +10,29 @@
             @csrf
             <div>
                 <h2>タイトル</h2>
-                <input type="text" name="question[title]" placeholder="タイトル" value="{{ old('question.title') }}"/>
+                <input type="text" name="question[title]" placeholder="タイトル" value="{{ $question->title }}"/>
                 <p class="title__error" style="color:red">{{ $errors->first('question.title') }}</p>
             </div>
             <div>
                 <h2>本文</h2>
-                <textarea name="question[body]">{{ old('question.body') }}</textarea>
+                <textarea name="question[body]">{{ $question->body }}</textarea>
                 <p class="body__error" style="color:red">{{ $errors->first('question.body') }}</p>
             </div>
             <div>
                 <h2>カテゴリー</h2>
                 <select multiple name="question[tags][]">
                  @foreach ($tags as $tag)
-                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                    <option value="{{ $tag->id }}" @if ($question->tags->contains($tag)) selected @endif>{{ $tag->name }}</option>
                  @endforeach
                 </select>
             </div>
             <div>
                 <h2>画像</h2>
-                <input type="file" name=image value={{old('question.image')}}>
+                <image src="{{ $question->image }}" width="200" height="200">
+                <input type="file" name=image>
             </div>
             <input type="submit" value="保存"/>
         </form>
-        <div><a href="/questions">戻る</a></div>
+        <div><a href={{ route('questions.my_questions') }}>戻る</a></div>
     </body>
 </html>
