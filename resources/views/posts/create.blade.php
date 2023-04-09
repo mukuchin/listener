@@ -26,6 +26,10 @@
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
+            <div>
+                <label for="published">記事トップの画像</label>
+                <input type="file" name=image value={{old('question.image_top')}}>
+            </div>
                 
             </div>
             <input type="submit" value="保存"/>
