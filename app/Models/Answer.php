@@ -15,6 +15,7 @@ class Answer extends Model
         'body',
         'user_id',
         'question_id',
+        'is_anonymous'
     ];
 
     // one-to-many for questions

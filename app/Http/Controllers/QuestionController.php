@@ -51,13 +51,13 @@ class QuestionController extends Controller
         //store an image
         //dd($request);
         $file = $request->file('image');
-        if(!empty($file)){
+        if (!empty($file)) {
             $filename = $file->getClientOriginalName();
             $move = $file->move('./upload', $filename);
-        }else{
+        } else {
             $filename = "";
         }
-        
+
         // create new question from request
         //$input = $request['question'];
         $input['user_id'] = Auth::user()->id;
@@ -69,8 +69,6 @@ class QuestionController extends Controller
         $question->tags()->attach($request->tags);
 
         return redirect()->route('questions.index');
-        
-        
     }
 
     // Edit a question
@@ -85,12 +83,24 @@ class QuestionController extends Controller
     // Update a question
     public function update(Question $question, QuestionRequest $request)
     {
-        // update question from request
-        $input = $request->all();
-        $question->fill($input)->save();
+        //store an image
+        $file = $request->file('image');
+        if (!empty($file)) {
+            $filename = $file->getClientOriginalName();
+            $move = $file->move('./upload', $filename);
+        } else {
+            $filename = "";
+        }
 
-        // sync tags to question
-        $question->tags()->sync($request->tags);
+        // create new question from request
+        $input = $request['question'];
+        $input['user_id'] = Auth::user()->id;
+        $question->fill($input);
+        $question->image = $filename;
+        $question->save();
+
+        // attach tags to question
+        $question->tags()->attach($request->tags);
 
         return redirect()->route('questions.index');
     }

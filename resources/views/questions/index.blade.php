@@ -37,9 +37,9 @@
           font-size:20px;
           text-decoration: underline;
       }
-      li{
+      /* li{
           float:left;
-      }
+      } */
       ul.clearfix:after{
       
           content: "";
@@ -59,6 +59,15 @@
                 <h2 class="title"><a href="{{ route('questions.show', $question->id) }}">
                     {{ $question->title }}
                 </a></h2>
+                @php
+                    // dd($question->is_anonymous);
+                    if ($question->is_anonymous == 1) {
+                        $author = '匿名';
+                    } else {
+                        $author = $question->user->name;
+                    }
+                @endphp
+                <h2>By: {{$author}}</h2>
                 <h2 >(Tags)</h2>
                 <ul class="clearfix">
                     @foreach ($question->tags as $tag)

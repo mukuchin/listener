@@ -35,12 +35,13 @@ class AnswerController extends Controller
     }
 
     //回答を削除
-    public function delete(Answer $answer)
+    public function destroy(Answer $answer)
     {
         $question_id = $answer->question_id;
         $answer->delete();
+        $answer->children()->delete();
 
         // TODO: Check if this is the correct way to redirect back to the previous page
-        return redirect()->route('questions.show', ['question_id' => $question_id]);
+        return redirect()->route('questions.show', ['question' => $question_id]);
     }
 }

@@ -15,6 +15,7 @@ class Question extends Model
         'title',
         'body',
         'user_id',
+        'is_anonymous'
     ];
 
     // many-to-many for tags
@@ -51,5 +52,4 @@ class Question extends Model
     {
         return Question::where('user_id', $user_id)->get();
     }
-
 }

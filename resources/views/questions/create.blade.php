@@ -31,6 +31,10 @@
                 <h2>画像</h2>
                 <input type="file" name=image>
             </div>
+            <div>
+                <span>匿名で投稿する</span>
+                <input type="checkbox" name="question[is_anonymous]" value="1">
+            </div>
             <input type="submit" value="保存"/>
         </form>
         <div><a href="/questions">戻る</a></div>

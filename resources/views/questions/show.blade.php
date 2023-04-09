@@ -1,13 +1,7 @@
 <!DOCTYPE html> 
-<x-app-layout>
-    <x-slot name="header">
-        　一覧
-    </x-slot>
-    <html>
+<html>
 <head>
-    <title>
-        Question {{$question->id}}
-    </title>
+    <title>Question {{$question->id}}</title>
 </head>
 <script>
     function toggleForm() {
@@ -16,23 +10,26 @@
     }
 </script>
 <body>
-    <h1 class="text-2xl font-bold py-5">{{ $question->title }}</h1>
-    <h2 class="text-xl font-bold py-1">Tags</h2>
+    <h1>{{ $question->title }}</h1>
+    <h2>Tags</h2>
     <ul>
         @foreach ($question->tags as $tag)
-            <li class="text-xm py-0">・{{ $tag->name }}</li>
+            <li>{{ $tag->name }}</li>
         @endforeach
     </ul>
-    <h2 class="text-xl font-bold py-1">Body</h2>
+    <h2>Body</h2>
     <p>{{ $question->body }}</p>
     
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold my-5 py-2 px-4 rounded"
+    @if($question->image != null)
+        <img src="{{ asset('./upload/'. $question->image) }}" alt="image" width="200" height="200">
+        <br>
+    @endif
+
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onclick="toggleForm()"
     >回答する</button>
-    
-    <form id="myAnswer" style="display: none;"
+    <form enctype="multipart/form-data" id="myAnswer" style="display: none;"
         method="POST"
-        class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         action="/questions/{{$question->id}}/reply"
     >
         @csrf
@@ -41,54 +38,80 @@
         <br />
         <h2>画像</h2>
         <input type="file" name=image value={{old('question.image')}}>
+        <input type="checkbox" name="is_anonymous" value="1">匿名で投稿する
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             type="submit"
         >回答を送信</button>
     </form>
     
-    {{-- insert horizontal bar --}}
-    <hr class="border-2 border-gray-300">
-
-    <h2 class="text-2xl">Answers</h2>
-    <ul class="list-disc">
+    <h2>Answers</h2>
+    <ul>
         @foreach ($question->answers as $answer)
             @if ($answer->answer_id == null)
-                <li>{{ $answer->body }}</li>
+                @php
+                    // dd($answer);
+                    if($answer->is_anonymous == 1)
+                        $replier = '匿名';
+                    else
+                        $replier = $answer->user->name;
+                @endphp
+                <li><span>回答者: {{ $replier }}</span><br/>内容: {{ $answer->body }}</li>
                 @if($answer->image)
                 <img src="{{asset('./upload/'.$answer->image)}}" width="100">
                 @endif
+
+                {{-- If answer is written by the user, let them delete --}}
+                @if ($answer->user_id == $user_id)
+                    <form method="POST" action="/answers/{{$answer->id}}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        >
+                        削除
+                        </button>
+                    </form>
+                @endif
                 @php
                     $answers = $answer->children;
-                    $indent = 0;
                 @endphp
                 {{-- while answers children exists, nest them --}}
                 @while ($answers->count() > 0)
                     @php
                         echo('<script>console.log('.$answers.');</script>')
                     @endphp
-                    <ul class="ml-5">
+                    <ul>
                         @foreach ($answers as $answer)
-                        <li>
-                            {{-- indent --}}
-                            @for ($i = 0; $i < $indent; $i++)
-                                <span class="ml-5"></span>
-                            @endfor
+                        @php
+                            if($answer->is_anonymous == 1)
+                                $replier = '匿名';
+                            else
+                                $replier = $answer->user->name;
+                        @endphp
+                        <li><span>回答者: {{ $replier }}</span><br/>内容: {{ $answer->body }}
                             {{ $answer->body }}
+                            @if($answer->image)
+                                <img src="{{asset('./upload/'.$answer->image)}}" width="100">
+                            @endif
+                            @if ($answer->user_id == $user_id)
+                                <form method="POST" action="/answers/{{$answer->id}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                    >
+                                    削除
+                                    </button>
+                                </form>
+                            @endif
                         </li>
                         @endforeach
                     </ul>
                     @php
                         $answers = $answer->children;
-                        $indent++;
                     @endphp
                 @endwhile
             @endif
-            {{-- <ul>
-            @foreach ($answer->children as $child)
-                <li>{{$child->body}}</li>
-            @endforeach
-            </ul> --}}
         @endforeach
     </ul>
 </body>
-</x-app-layout>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('is_anonymous')->default(false);
         });
     }
 

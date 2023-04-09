@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('question_id')->constrained()->OnDelete('cascade');
             $table->unsignedBigInteger('answer_id')->nullable();
             $table->softDeletes();
+            $table->boolean('is_anonymous')->default(false);
         });
     }
 
