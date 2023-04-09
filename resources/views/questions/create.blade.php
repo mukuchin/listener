@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>create</title>
+        
     </head>
     <body>
         <h1>投稿作成</h1>
