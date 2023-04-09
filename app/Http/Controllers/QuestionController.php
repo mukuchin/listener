@@ -21,7 +21,7 @@ class QuestionController extends Controller
     public function myQuestions()
     {
         $user_id = Auth::user()->id;
-        return view('myQuestions.index')->with([
+        return view('questions.myQuestions')->with([
             'questions' => Question::getQuestionsByUserID($user_id)
         ]);
     }
@@ -48,7 +48,7 @@ class QuestionController extends Controller
     public function store(Question $question, QuestionRequest $request)
     {
         // create new question from request
-        $input = $request->all();
+        $input = $request['question'];
         $input['user_id'] = Auth::user()->id;
         $question->fill($input)->save();
 

@@ -21,6 +21,7 @@
         @foreach ($question->answers as $answer)
             @if ($answer->answer_id == null)
                 <li>{{ $answer->body }}</li>
+                <img src="{{asset('./upload/'.$answer->image)}}" width="100">
                 @php
                     $answers = $answer->children;
                 @endphp
