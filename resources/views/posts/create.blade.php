@@ -7,7 +7,7 @@
     <body>
         <h1>チーム開発会へようこそ！</h1>
         <h2>投稿作成</h2>
-        <form action="/posts" method="POST">
+        <form enctype="multipart/form-data" action="/posts" method="POST">
             @csrf
             <div>
                 <h2>タイトル</h2>
@@ -28,7 +28,7 @@
                 </select>
             <div>
                 <label for="published">記事トップの画像</label>
-                <input type="file" name=image value={{old('question.image_top')}}>
+                <input type="file" name=image value={{old('question.image')}}>
             </div>
                 
             </div>
