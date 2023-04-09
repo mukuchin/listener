@@ -84,6 +84,7 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         $question->delete();
+        $question->answers()->delete();
         $question->tags()->detach();
         return redirect()->route('questions.index');
     }
